@@ -1,15 +1,15 @@
 - model: shop.product
   pk: 1
   fields:
-    name: Стол
+    name: Двигатель
     price: 2000
 - model: shop.product
   pk: 2
   fields:
-    name: Стул
+    name: Коробка передач
     price: 1000
 - model: shop.product
   pk: 3
   fields:
-    name: Табурет
+    name: Стартер
     price: 500
