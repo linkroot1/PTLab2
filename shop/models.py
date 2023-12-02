@@ -11,3 +11,7 @@ class Purchase(models.Model):
     person = models.CharField(max_length=200)
     address = models.CharField(max_length=200)
     date = models.DateTimeField(auto_now_add=True)
+
+class Config(models.Model):
+    discount = models.BooleanField()
+    countProducts = models.BigIntegerField(default=0)

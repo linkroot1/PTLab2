@@ -4,13 +4,21 @@ from django.views.generic.edit import CreateView
 from django.db.models import F
 
 
-from .models import Product, Purchase
+from .models import Product, Purchase, Config
+
 
 # Create your views here.
 def index(request):
-    #ToDo: тут надо добавить еще условие что если у записей поле discount false то применяем скидку и меняем значение поля объектов на true
-    if Purchase.objects.all().count() == 2 and Purchase.objects.get(id=1).discount == 0:
-        Product.objects.all().update(price = F("price") * 0.6)
+    if Purchase.objects.all().distinct('product_id').count() == 2 and Config.objects.get(id=1).discount == False:
+       Product.objects.all().update(price = F("price") * 0.6)
+       Config.objects.all().update(discount = True)
+       Config.objects.all().update(countProducts = Purchase.objects.all().count())
+       print("Дали скидку")
+
+    if Config.objects.get(id=1).countProducts != None and Config.objects.get(id=1).countProducts != 0 and Purchase.objects.all().count() > Config.objects.get(id=1).countProducts and Config.objects.get(id=1).discount == True:
+       Product.objects.all().update(price = F("price") / 0.6)
+       Config.objects.all().update(countProducts=0)
+       print("Убрали скидку")
 
     products = Product.objects.all()
     context = {'products': products}

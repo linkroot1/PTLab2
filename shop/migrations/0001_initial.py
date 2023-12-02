@@ -30,4 +30,12 @@ class Migration(migrations.Migration):
                 ('product', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='shop.product')),
             ],
         ),
+        migrations.CreateModel(
+            name='Config',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('discount', models.BooleanField(default=False)),
+                ('countProducts', models.BigIntegerField(default=0)),
+            ],
+        ),
     ]
